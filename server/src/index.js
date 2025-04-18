@@ -4,7 +4,7 @@ import cors from 'cors';
 
 const app = new Hono();
 
-app.use('*', cors()); // enable CORS for all routes (optional, but useful)
+app.use('*', cors()); // enable CORS for all routes (optional)
 
 app.get('/', (c) => {
   return c.text('Backend is running!')
