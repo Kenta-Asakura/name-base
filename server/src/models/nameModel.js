@@ -24,5 +24,16 @@ export const nameModel = {
       console.error('Error in findAll', error);
       throw error;
     }
+  },
+
+  async testConnection() {
+    try {
+      const result = await sql`SELECT NOW() as current_time`;
+      console.log('Database connection successful:', result[0].current_time);
+      return true;
+    } catch (error) {
+      console.error('Database connection failed:', error);
+      return false;
+    }
   }
 };

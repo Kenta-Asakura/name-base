@@ -1,38 +1,43 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
-// import postgres from "postgres";
-// import dotenv from 'dotenv';
-// import { cors } from 'hono/cors';
+import { cors } from 'hono/cors';
+import dotenv from 'dotenv';
+
+import nameRouter from './routes/nameRoutes.js';
+import testRouter from './routes/testRoutes.js';
 
 // Load environment variables
-// dotenv.config();
-
-// * TEST ENV
-// const result = dotenv.config();
-// console.log(
-//   "ENV loaded:", result,`
-//   "DB_USER:", process.env.DB_USER
-// );
-
-// * TEST connection
-// const sql = postgres({
-//   host: process.env.DB_HOST,
-//   port: parseInt(process.env.DB_PORT || "5432"),
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-// });
+dotenv.config();
 
 const app = new Hono();
 
-app.get("/", async (c) => {
-  // * TEST lines
-  // const result = await sql`SELECT 1 + 1`;
-  // console.log(result);
+// Middleware
+app.use('*', cors());
 
-  return c.text("Hello!");
-});
+// Health check route
+app.get('/', (c) => c.json({ status: 'Server is running' }));
 
-serve(app, (info) => {
+// ! TEST postgreSQL query
+app.route('/api/test', testRouter);
+
+// * Debug - show environment variables
+// app.get('/debug/env', (c) => {
+//   return c.json({
+//     dbHost: process.env.DB_HOST || 'not set',
+//     dbPort: process.env.DB_PORT || 'not set',
+//     dbUser: process.env.DB_USER || 'not set',
+//     dbName: process.env.DB_NAME || 'not set',
+//   });
+// });
+
+// Start server
+const port = process.env.PORT || 3001;
+console.log(`Using port: ${port}`); // ! Add this for debugging
+
+// Serve app
+serve({
+  fetch: app.fetch,
+  port: port,
+}, (info) => {
   console.log(`Listening on http://localhost:${info.port}`);
 });
