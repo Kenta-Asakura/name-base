@@ -19,7 +19,7 @@ export const api = {
 
   async addName(firstName, lastName) {
     try {
-      const response = await fetch(`${API_URL}/api/names`, {
+      const response = await fetch(`${API_URL}/names`, { // *
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

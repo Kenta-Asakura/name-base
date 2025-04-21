@@ -1,25 +1,28 @@
 import './App.css';
-
 import NameList from './components/NameList';
+import NameForm from './components/NameForm';
 
 function App() {
   return (
     <>
-     <div className="min-h-screen bg-base-200 flex items-center justify-center">
-        {/* <div className="card w-96 bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">DaisyUI test card</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam temporibus tempora vero et fugit quos reiciendis nam corporis officia? Amet excepturi quis pariatur, maxime omnis nulla rem dolor sed itaque.</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Test button</button>
+      <div className="min-h-screen bg-base-200 p-8">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-3xl font-bold text-center mb-8">Name Registry</h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <NameForm />
+
+            <div className="card bg-base-100 shadow-xl">
+              <div className="card-body">
+                <h2 className="card-title">Registered Names</h2>
+                <NameList />
+              </div>
             </div>
           </div>
-        </div> */}
-
-        <NameList />
+        </div>
       </div>
     </>
   )
-}
+};
 
 export default App;
