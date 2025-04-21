@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS names (
 );
 
 -- add indexes for better query performance
+-- ! maybe optional ?
 CREATE INDEX IF NOT EXISTS idx_names_last_name ON names(last_name);
 
 -- documentation

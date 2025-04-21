@@ -33,11 +33,15 @@ services:
       - "3001:3001"
     volumes:
       - ./server:/app
-      - /app/node_modules
     depends_on:
       - postgres
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3001"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   client:
     build:
@@ -50,11 +54,15 @@ services:
       - "5173:5173"
     volumes:
       - ./client:/app
-      - /app/node_modules
     depends_on:
       - server
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:5173"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   app-network:
