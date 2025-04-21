@@ -13,6 +13,18 @@ const sql = postgres({
 });
 
 export const nameModel = {
+  // ! TEST
+  // async testConnection() {
+  //   try {
+  //     const result = await sql`SELECT NOW() as current_time`;
+  //     console.log('Database connection successful:', result[0].current_time);
+  //     return true;
+  //   } catch (error) {
+  //     console.error('Database connection failed:', error);
+  //     return false;
+  //   }
+  // }
+
   async findAll() {
     try {
       const names = await sql`
@@ -26,14 +38,17 @@ export const nameModel = {
     }
   },
 
-  async testConnection() {
+  async create(firstName, lastName) {
     try {
-      const result = await sql`SELECT NOW() as current_time`;
-      console.log('Database connection successful:', result[0].current_time);
-      return true;
+      const result = await sql`
+        INSERT INTO names (first_name, last_name)
+        VALUES (${first_name}, ${last_name})
+        RETURNING *
+      `;
+      return result [0]; // *
     } catch (error) {
-      console.error('Database connection failed:', error);
-      return false;
+      console.error('Error in create', error);
+      throw error;
     }
   }
 };

@@ -17,25 +17,24 @@ export const api = {
     }
   },
 
-  // * To be implemented - Adding new person
-  // async addName(firstName, lastName) {
-  //   try {
-  //     const response = await fetch(`${API_URL}/api/names`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ firstName, lastName }),
-  //     });
+  async addName(firstName, lastName) {
+    try {
+      const response = await fetch(`${API_URL}/api/names`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      });
 
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-  //     return await response.json();
-  //   } catch (error) {
-  //     console.error('Error adding name:', error);
-  //     throw error;
-  //   }
-  // }
+      return await response.json();
+    } catch (error) {
+      console.error('Error adding name:', error);
+      throw error;
+    }
+  }
 };
