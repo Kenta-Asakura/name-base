@@ -1,0 +1,41 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+export const api = {
+  // Get all person
+  async getNames() {
+    try {
+      const response = await fetch(`${API_URL}/names`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching names:', error);
+      throw error;
+    }
+  },
+
+  // * To be implemented - Adding new person
+  // async addName(firstName, lastName) {
+  //   try {
+  //     const response = await fetch(`${API_URL}/api/names`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ firstName, lastName }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error('Error adding name:', error);
+  //     throw error;
+  //   }
+  // }
+};
