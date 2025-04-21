@@ -17,7 +17,10 @@ app.use('*', cors());
 // Health check route
 app.get('/', (c) => c.json({ status: 'Server is running' }));
 
-// ! TEST postgreSQL query
+// Routes
+app.route('/names', nameRouter);
+
+// ! - TEST postgreSQL query
 app.route('/api/test', testRouter);
 
 // * Debug - show environment variables
