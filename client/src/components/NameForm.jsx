@@ -48,6 +48,7 @@ function NameForm() {
               className="input input-bordered"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </div>
 
@@ -62,6 +63,7 @@ function NameForm() {
               className="input input-bordered"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
 

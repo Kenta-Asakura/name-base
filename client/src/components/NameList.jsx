@@ -25,7 +25,6 @@ function NameList() {
       <table className="table w-full">
         <thead>
           <tr>
-            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Created At</th>
@@ -35,7 +34,6 @@ function NameList() {
         <tbody>
           {names.map((name) => (
             <tr key={name.id}>
-              <td>{name.id}</td>
               <td>{name.first_name}</td>
               <td>{name.last_name}</td>
               <td>{new Date(name.created_at).toLocaleString()}</td>
