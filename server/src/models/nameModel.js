@@ -2,7 +2,7 @@ import postgres from "postgres";
 import dotenv from 'dotenv';
 
 // Load environment variables based on NODE_ENV
-const envFile = process.env.NODE_ENV === 'production'
+const envFile = process.env.RUN_ENV === 'docker'
   ? '.env.docker'
   : '.env.development';
 
@@ -24,7 +24,8 @@ const sql = postgres({
   port: parseInt(process.env.DB_PORT || "5432"),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  debug: true, // This will log all queries to console
 });
 
 export const nameModel = {
@@ -41,9 +42,8 @@ export const nameModel = {
   },
 
   async findAll() {
-    console.log("findAll() called");
-
     try {
+      console.log('Executing findAll query');
       const names = await sql`
         SELECT * FROM names
         ORDER BY created_at DESC

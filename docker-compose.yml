@@ -27,6 +27,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./server/.env.docker
+    environment:
+      - RUN_ENV=docker
     ports:
       - "3001:3001"
     volumes:
@@ -48,6 +50,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./client/.env.docker
+    environment:
+      - RUN_ENV=docker
     ports:
       - "5173:5173"
     volumes:

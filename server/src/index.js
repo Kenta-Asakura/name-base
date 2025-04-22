@@ -40,9 +40,17 @@ const port = process.env.PORT || 3001;
 console.log(`Using port: ${port}`);
 
 // Serve app
+// serve({
+//   fetch: app.fetch,
+//   port: port,
+// }, (info) => {
+//   console.log(`Listening on http://localhost:${info.port}`);
+// });
+
 serve({
   fetch: app.fetch,
-  port: port,
+  port,
+  hostname: '0.0.0.0'  // This allows connections from any IP
 }, (info) => {
   console.log(`Listening on http://localhost:${info.port}`);
 });

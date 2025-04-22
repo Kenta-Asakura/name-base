@@ -1,8 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// console.log('API URL being used:', API_URL); // ! For debugging
 
 export const api = {
   async getNames() {
     try {
+      console.log('Fetching from:', `${API_URL}/names`);
       const response = await fetch(`${API_URL}/names`);
 
       if (!response.ok) {
