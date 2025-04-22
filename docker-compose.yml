@@ -4,9 +4,9 @@ services:
     container_name: name-base-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: name_base
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-name_base}
     ports:
       - "5432:5432"
     volumes:
@@ -25,10 +25,8 @@ services:
       context: ./server
     container_name: name-base-server
     restart: unless-stopped
-    environment:
-      NODE_ENV: development
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/name_base
-      PORT: 3001
+    env_file:
+      - ./server/.env.docker
     ports:
       - "3001:3001"
     volumes:
@@ -48,8 +46,8 @@ services:
       context: ./client
     container_name: name-base-client
     restart: unless-stopped
-    environment:
-      VITE_API_URL: http://localhost:3001
+    env_file:
+      - ./client/.env.docker
     ports:
       - "5173:5173"
     volumes:
