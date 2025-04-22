@@ -34,7 +34,6 @@ function NameForm() {
         <h2 className="card-title">Add New Name</h2>
 
         <form
-          className=""
           onSubmit={handleSubmit}
         >
           <div className="form-control">
