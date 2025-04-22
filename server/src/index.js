@@ -18,24 +18,26 @@ app.use('*', cors());
 app.get('/', (c) => c.json({ status: 'Server is running' }));
 
 // Routes
+// - Query all names
 app.route('/names', nameRouter);
 
-// ! - TEST postgreSQL query
-app.route('/api/test', testRouter);
+// ! TEST - postgreSQL query
+// app.route('/api/test', testRouter);
 
-// * Debug - show environment variables
+// ! Debug - show environment variables
 // app.get('/debug/env', (c) => {
 //   return c.json({
 //     dbHost: process.env.DB_HOST || 'not set',
 //     dbPort: process.env.DB_PORT || 'not set',
 //     dbUser: process.env.DB_USER || 'not set',
+//     dbPassword: process.env.DB_PASSWORD || 'not set',
 //     dbName: process.env.DB_NAME || 'not set',
 //   });
 // });
 
 // Start server
 const port = process.env.PORT || 3001;
-console.log(`Using port: ${port}`); // ! Add this for debugging
+console.log(`Using port: ${port}`);
 
 // Serve app
 serve({

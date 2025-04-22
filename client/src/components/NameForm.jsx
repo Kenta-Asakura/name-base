@@ -33,11 +33,15 @@ function NameForm() {
       <div className="card-body">
         <h2 className="card-title">Add New Name</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form
+          className=""
+          onSubmit={handleSubmit}
+        >
           <div className="form-control">
             <label className="label">
               <span className="label-text">First Name</span>
             </label>
+
             <input
               type="text"
               placeholder="Enter first name"
@@ -51,6 +55,7 @@ function NameForm() {
             <label className="label">
               <span className="label-text">Last Name</span>
             </label>
+
             <input
               type="text"
               placeholder="Enter last name"

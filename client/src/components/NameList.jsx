@@ -18,8 +18,7 @@ function NameList() {
     fetchNames();
   }, []);
 
-  // ! TEST
-  // console.log(names);
+  // console.log(names); // * TEST
 
   return (
     <div className="overflow-x-auto">

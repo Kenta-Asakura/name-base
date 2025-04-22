@@ -1,7 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export const api = {
-  // Get all person
   async getNames() {
     try {
       const response = await fetch(`${API_URL}/names`);
