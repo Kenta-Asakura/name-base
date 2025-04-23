@@ -59,7 +59,7 @@ export const nameModel = {
         SELECT * FROM names
         WHERE id = ${id}
       `;
-      return result[0];
+      return result[0] || null;
     } catch (error) {
       console.error('Error in findById', error);
       throw error;

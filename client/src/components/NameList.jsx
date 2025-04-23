@@ -9,9 +9,19 @@ function NameList({ refresh }) {
       const data = await api.getNames();
       setNames(data);
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching all names:', err);
     }
   };
+
+  const handleEditClick = async (id) => {
+    try {
+      console.log(`Edit button clicked for id: ${id}`);
+      const name = await api.getNameById(id);
+      console.log('Retrieved name:', name);
+    } catch (err) {
+      console.error('Error fetching name details:', err);
+    }
+  }
 
   // Effect to fetch names on mount and when refresh changes
   useEffect(() => {
@@ -37,6 +47,14 @@ function NameList({ refresh }) {
               <td>{name.first_name}</td>
               <td>{name.last_name}</td>
               <td>{new Date(name.created_at).toLocaleString()}</td>
+              <td>
+                <button
+                  className="btn btn-sm btn-info"
+                  onClick={() => handleEditClick(name.id)}
+                >
+                  Edit
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
