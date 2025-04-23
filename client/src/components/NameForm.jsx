@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../services/api";
 
-function NameForm() {
+function NameForm({ onNameAdded }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -14,7 +14,7 @@ function NameForm() {
     }
 
     try {
-      await api.addName(firstName, lastName);
+      const result = await api.addName(firstName, lastName);
 
       // Clear form after successful submission
       setFirstName('');
@@ -22,6 +22,9 @@ function NameForm() {
 
       // ! To be implemented
       // Notify parent component to refresh the list
+      if (onNameAdded) {
+        onNameAdded(result);
+      }
     } catch (err) {
       console.error(err);
     }

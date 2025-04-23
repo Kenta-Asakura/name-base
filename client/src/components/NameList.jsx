@@ -1,22 +1,22 @@
 import { api } from '../services/api';
 import { useState, useEffect } from 'react';
 
-function NameList() {
+function NameList({ refresh }) {
   const [names, setNames] = useState([]);
 
-  useEffect(() => {
-    // Fetch names when component mounts
-    const fetchNames = async () => {
-      try {
-        const data = await api.getNames();
-        setNames(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  const fetchNames = async () => {
+    try {
+      const data = await api.getNames();
+      setNames(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    fetchNames();
-  }, []);
+  // Effect to fetch names on mount and when refresh changes
+  useEffect(() => {
+    fetchNames(); // Fetch names on mount
+  }, [refresh]); // Dependency - Refetch when refresh changes
 
   // console.log(names); // * TEST
 
