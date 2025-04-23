@@ -53,6 +53,19 @@ export const nameModel = {
     }
   },
 
+  async findById(id) {
+    try {
+      const result = await sql`
+        SELECT * FROM names
+        WHERE id = ${id}
+      `;
+      return result[0];
+    } catch (error) {
+      console.error('Error in findById', error);
+      throw error;
+    }
+  },
+
   async create(firstName, lastName) {
     try {
       const result = await sql`
@@ -60,10 +73,14 @@ export const nameModel = {
         VALUES (${firstName}, ${lastName})
         RETURNING *
       `;
-      return result [0]; // *
+      return result [0];
     } catch (error) {
       console.error('Error in create', error);
       throw error;
     }
-  }
+  },
+
+  // update
+
+  // delete
 };

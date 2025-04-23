@@ -18,6 +18,21 @@ export const api = {
     }
   },
 
+  async getNameById(id) {
+    try {
+      const response = await fetch(`${API_URL}/names/${id}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(`Error fetching name with id ${id}:`, error);
+      throw error;
+    }
+  },
+
   async addName(firstName, lastName) {
     try {
       const response = await fetch(`${API_URL}/names`, { // *

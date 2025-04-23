@@ -15,7 +15,7 @@ function App() {
     <>
       <div className="min-h-screen bg-base-200 p-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-8">Name Registry</h1>
+          <h1 className="text-3xl font-bold text-center mb-8">Name Base</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <NameForm onNameAdded={handleNameAdded} />

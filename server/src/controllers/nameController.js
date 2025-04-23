@@ -12,6 +12,20 @@ export const nameController = {
     }
   },
 
+  async getNameById(c) {
+    try {
+      const id = c.req.param('id');
+      const name = await nameModel.findById(id);
+
+      if (!name) {
+        return c.json({ error: 'Name not found'}, 404);
+      }
+    } catch (error) {
+      console.error('Error fetching name by id', error);
+      return c.json({ error: 'Failed to fetch name' }, 500);
+    }
+  },
+
   async createName(c) {
     try {
       const body = await c.req.json();

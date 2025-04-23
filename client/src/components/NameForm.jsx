@@ -34,10 +34,11 @@ function NameForm({ onNameAdded }) {
   return (
     <div className="card bg-base-100 shadow-xl">
       <div className="card-body">
-        <h2 className="card-title">Add New Name</h2>
+        <h2 className="card-title mb-2">Add New Name</h2>
 
         <form
           onSubmit={handleSubmit}
+          className="flex flex-col gap-y-3"
         >
           <div className="form-control">
             <label className="label">
@@ -69,7 +70,7 @@ function NameForm({ onNameAdded }) {
             />
           </div>
 
-          <div className="form-control mt-6">
+          <div className="form-control mt-3">
             <button
               type="submit"
               className="btn btn-primary"
