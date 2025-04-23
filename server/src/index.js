@@ -30,7 +30,6 @@ app.route('/names', nameRouter);
 //     dbHost: process.env.DB_HOST || 'not set',
 //     dbPort: process.env.DB_PORT || 'not set',
 //     dbUser: process.env.DB_USER || 'not set',
-//     dbPassword: process.env.DB_PASSWORD || 'not set',
 //     dbName: process.env.DB_NAME || 'not set',
 //   });
 // });
@@ -40,13 +39,6 @@ const port = process.env.PORT || 3001;
 console.log(`Using port: ${port}`);
 
 // Serve app
-// serve({
-//   fetch: app.fetch,
-//   port: port,
-// }, (info) => {
-//   console.log(`Listening on http://localhost:${info.port}`);
-// });
-
 serve({
   fetch: app.fetch,
   port,
