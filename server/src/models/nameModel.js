@@ -14,18 +14,18 @@ dotenv.config({ path: new URL(`../../${envFile}`, import.meta.url) });
 //   host: process.env.DB_HOST,
 //   port: process.env.DB_PORT,
 //   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
 //   database: process.env.DB_NAME
 // });
 
 // PostgreSQL connection
-// const sql = postgres({
-//   host: process.env.DB_HOST,
-//   port: parseInt(process.env.DB_PORT || "5432"),
-//   user: process.env.DB_USER,
-//   database: process.env.DB_NAME,
-//   debug: true, // This will log all queries to console
-// });
+const sql = postgres({
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT || "5432"),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  debug: true, // This will log all queries to console
+});
 
 export const nameModel = {
   // ! TEST
