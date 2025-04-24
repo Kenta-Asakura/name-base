@@ -77,7 +77,12 @@ export const api = {
 
   async deleteName(id) {
     try {
-      const response = await fetch(`${API_URL}/names/${id}`);
+      const response = await fetch(`${API_URL}/names/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
