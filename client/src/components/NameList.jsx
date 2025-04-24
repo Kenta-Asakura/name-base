@@ -1,11 +1,8 @@
 import { api } from '../services/api';
 import { useState, useEffect } from 'react';
 
-function NameList({ refresh, setIsEditModalOpen }) {
+function NameList({ refresh, onEditClick }) {
   const [names, setNames] = useState([]);
-  const [selectedName, setSelectedName] = useState(null);
-
-  // console.log(names); // * TEST
 
   const fetchNames = async () => {
     try {
@@ -20,13 +17,6 @@ function NameList({ refresh, setIsEditModalOpen }) {
   useEffect(() => {
     fetchNames(); // Fetch names on mount
   }, [refresh]); // Dependency - Refetch when refresh changes
-
-  // Gets the id
-  const handleEditClick = (name) => {
-    console.log(`Clicked btn for ${name}`); // ! test
-    setSelectedName(name);
-    setIsEditModalOpen(true); // !
-  };
 
   return (
     <div className="overflow-x-auto">
@@ -48,8 +38,7 @@ function NameList({ refresh, setIsEditModalOpen }) {
               <td>
                 <button
                   className="btn btn-sm btn-info"
-                  onClick={() => handleEditClick(name.id)} // *test get by id
-                  // onClick={() => handleEditClick(name)}
+                  onClick={() => onEditClick(name)}
                 >
                   Edit
                 </button>

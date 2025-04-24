@@ -16,11 +16,9 @@ function NameForm({ onNameAdded }) {
     try {
       const result = await api.addName(firstName, lastName);
 
-      // Clear form after successful submission
       setFirstName('');
       setLastName('');
 
-      // ! To be implemented
       // Notify parent component to refresh the list
       if (onNameAdded) {
         onNameAdded(result);

@@ -9,22 +9,37 @@ import EditNameModal from './components/EditNameModal';
 function App() {
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // * Added to control modal visibility
+  const [selectedName, setSelectedName] = useState(null);
 
   const handleNameAdded = () => {
-    // Increment refresh key to trigger re-fetch in NameList
     setRefreshCounter(prevCounter => prevCounter + 1);
   };
 
-  // ! implement
-  // const handleEditClick = async (id) => {
-  //   try {
-  //     console.log(`Edit button clicked for id: ${id}`);
-  //     const name = await api.getNameById(id);
-  //     console.log('Retrieved name:', name);
-  //   } catch (err) {
-  //     console.error('Error fetching name details:', err);
-  //   }
-  // };
+  const handleEditClick = (name) => {
+    // ! test
+    // console.log(`Clicked btn for ${name}`);
+    // console.log(name);
+
+    const id = name.id;
+
+    setSelectedName(name);
+    setIsEditModalOpen(true);
+
+    async () => {
+      try {
+        console.log(`Edit button clicked for id: ${id}`);
+        const name = await api.getNameById(id);
+        console.log('Retrieved name:', name);
+      } catch (err) {
+        console.error('Error fetching name details:', err);
+      }
+    };
+  };
+
+  const handleNameUpdated = () => {
+    setRefreshCounter(prevCounter => prevCounter + 1);
+    setIsEditModalOpen(false);
+  };
 
   return (
     <>
@@ -40,7 +55,7 @@ function App() {
                 <h2 className="card-title">Registered Names</h2>
                 <NameList
                   refresh={refreshCounter}
-                  setIsEditModalOpen={setIsEditModalOpen}
+                  onEditClick={handleEditClick}
                 />
               </div>
             </div>
@@ -50,7 +65,8 @@ function App() {
 
       {isEditModalOpen &&
         <EditNameModal
-          // onNameUpdated={handleEditClick}
+          name={selectedName}
+          onNameUpdated={handleNameUpdated}
           onClose={() => setIsEditModalOpen(false)}
         />
       }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
 
-function EditNameModal({ name, onNameUpdate, onClose }) {
+function EditNameModal({ name, onNameUpdated, onClose }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -9,15 +9,21 @@ function EditNameModal({ name, onNameUpdate, onClose }) {
   useEffect(() => {
     if (name) {
       setFirstName(name.first_name);
-      setLastName(name._name);
+      setLastName(name.last_name);
     }
   }, [name])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!firstName.trim() || !lastName.trim()) {
+      console.error("Both first name and last name are required");
+      return;
+    }
+
     try {
       await api.updateName(name.id, firstName, lastName);
+      onNameUpdated(); // Notify parent about successful update
     } catch (err) {
       console.error('Error updating name:', err);
     }
@@ -69,6 +75,7 @@ function EditNameModal({ name, onNameUpdate, onClose }) {
             <button
               type="submit"
               className="btn btn-primary"
+              onClick={handleSubmit}
             >
               Save
             </button>
