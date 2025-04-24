@@ -71,7 +71,6 @@ export const nameModel = {
       const result = await sql`
         INSERT INTO names (first_name, last_name)
         VALUES (${firstName}, ${lastName})
-        RETURNING *
       `;
       return result [0];
     } catch (error) {
@@ -89,9 +88,9 @@ export const nameModel = {
       }
 
       const result = await sql`
-        UPDATE users
+        UPDATE names
         SET first_name = ${firstName}, last_name = ${lastName}
-        WHERE id = 1;
+        WHERE id = ${id}
         RETURNING *
       `;
       return result[0];
