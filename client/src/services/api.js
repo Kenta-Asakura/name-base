@@ -75,7 +75,18 @@ export const api = {
     }
   },
 
-  // async deleteName(id) {
+  async deleteName(id) {
+    try {
+      const response = await fetch(`${API_URL}/names/${id}`);
 
-  // }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(`Error deleting name with id ${id}:`, error);
+      throw error;
+    }
+  }
 };
