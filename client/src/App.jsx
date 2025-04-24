@@ -39,7 +39,11 @@ function App() {
   const handleNameUpdated = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
     setIsEditModalOpen(false);
-  }; // *
+  };
+
+  const handleNameDeleted = () => {
+    setRefreshCounter(prevCounter => prevCounter + 1);
+  };
 
   return (
     <>
@@ -56,6 +60,7 @@ function App() {
                 <NameList
                   refresh={refreshCounter}
                   onEditClick={handleEditClick}
+                  onDeleteSuccess={handleNameDeleted}
                 />
               </div>
             </div>

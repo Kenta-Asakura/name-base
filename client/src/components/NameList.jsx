@@ -18,6 +18,14 @@ function NameList({ refresh, onEditClick }) {
     fetchNames(); // Fetch names on mount
   }, [refresh]); // Dependency - Refetch when refresh changes
 
+  const handleDeleteClick = async (id) => {
+    try {
+      await api.deleteName(id);
+    } catch (err) {
+      console.error('Error deleting name:', err);
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -26,6 +34,7 @@ function NameList({ refresh, onEditClick }) {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Created At</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -35,12 +44,19 @@ function NameList({ refresh, onEditClick }) {
               <td>{name.first_name}</td>
               <td>{name.last_name}</td>
               <td>{new Date(name.created_at).toLocaleString()}</td>
-              <td>
+              <td className="flex gap-2">
                 <button
                   className="btn btn-sm btn-info"
                   onClick={() => onEditClick(name)}
                 >
                   Edit
+                </button>
+
+                <button
+                  className="btn btn-sm btn-error"
+                  onClick={() => handleDeleteClick(name.id)}
+                >
+                  Delete
                 </button>
               </td>
             </tr>
