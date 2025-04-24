@@ -20,7 +20,7 @@ export const api = {
 
   async getNameById(id) {
     try {
-      const response = await fetch(`${API_URL}/names/${id}`);
+      const response = await fetch(`${API_URL}/names/${id}`); // ?
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -50,6 +50,28 @@ export const api = {
       return await response.json();
     } catch (error) {
       console.error('Error adding name:', error);
+      throw error;
+    }
+  },
+
+  // ! implement
+  async updateName(id, firstName, lastName) {
+    try {
+      const response = await fetch(`${API_URL}/names/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error(`Error updating name with id ${id}:`, error);
       throw error;
     }
   }

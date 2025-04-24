@@ -22,7 +22,7 @@ export const nameController = {
       if (!name) {
         return c.json({ error: 'Name not found'}, 404);
       }
-      
+
       return c.json(name);
     } catch (error) {
       console.error('Error fetching name by id', error);
@@ -47,6 +47,26 @@ export const nameController = {
     } catch (error) {
       console.error('Error creating name', error);
       return c.json({error: 'Failed to create name'}, 500);
+    }
+  },
+
+  async updateName(c) {
+    try {
+      const id = c.req.param('id');
+      const body = await c.req.json();
+
+      // Validate input
+      if (!body.firstName || !body.lastName) {
+        return c.json({ error: 'First name and last name are required' }, 400);
+      }
+
+      console.log(`Updating name with id: ${id}`, body);
+      const result = await nameModel.update(id, body.firstName, body.lastName);
+
+      return c.json(result);
+    } catch (error) {
+      console.error('Error fetching name by id', error);
+      return c.json({ error: 'Failed to fetch name' }, 500);
     }
   }
 };

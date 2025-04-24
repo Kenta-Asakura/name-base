@@ -13,6 +13,7 @@ nameRouter.get('/:id', nameController.getNameById);
 nameRouter.post('/', nameController.createName);
 
 // Update a name
+nameRouter.put('/:id', nameController.updateName);
 
 // Delete a name
 

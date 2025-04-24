@@ -81,6 +81,25 @@ export const nameModel = {
   },
 
   // update
+  async update(id, firstName, lastName) {
+    try {
+      const recordExists = await this.findById(id);
+      if (!recordExists) {
+        return null;
+      }
+
+      const result = await sql`
+        UPDATE users
+        SET first_name = ${firstName}, last_name = ${lastName}
+        WHERE id = 1;
+        RETURNING *
+      `;
+      return result[0];
+    } catch (error) {
+      console.error('Error in update', error);
+      throw error;
+    }
+  }
 
   // delete
 };
