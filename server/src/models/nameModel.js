@@ -98,7 +98,23 @@ export const nameModel = {
       console.error('Error in update', error);
       throw error;
     }
-  }
+  },
 
   // delete
+  async delete(id) {
+    try {
+      const recordExists = this.findById(id);
+      if (!recordExists) {
+        return null;
+      }
+
+      const result = await sql`
+        DELETE FROM names
+        WHERE id = ${id}
+      `;
+      return result[0];
+    } catch (error) {
+      console.error('Error in delete', error);
+    }
+  }
 };

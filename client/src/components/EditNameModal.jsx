@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { api } from "../services/api";
 
 function EditNameModal({ name, onNameUpdated, onClose }) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState(''); // *
+  const [lastName, setLastName] = useState(''); // *
 
-  // Set initial values when modal opens with a name
+  // Sets/resets name
   useEffect(() => {
     if (name) {
       setFirstName(name.first_name);
       setLastName(name.last_name);
-    }
-  }, [name])
+    } // ! why if
+  }, [name]) // why name dependency
 
   const handleSubmit = async (e) => {
     e.preventDefault();

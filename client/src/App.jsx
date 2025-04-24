@@ -7,9 +7,9 @@ import NameForm from './components/NameForm';
 import EditNameModal from './components/EditNameModal';
 
 function App() {
-  const [refreshCounter, setRefreshCounter] = useState(0);
+  const [refreshCounter, setRefreshCounter] = useState(0); // * Refreshes names list
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // * Added to control modal visibility
-  const [selectedName, setSelectedName] = useState(null);
+  const [selectedName, setSelectedName] = useState(null); // * = name object containing (first, last, id)
 
   const handleNameAdded = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
@@ -20,10 +20,10 @@ function App() {
     // console.log(`Clicked btn for ${name}`);
     // console.log(name);
 
-    const id = name.id;
+    const id = name.id; // *
 
-    setSelectedName(name);
-    setIsEditModalOpen(true);
+    setSelectedName(name); // *
+    setIsEditModalOpen(true); // *
 
     async () => {
       try {
@@ -39,7 +39,7 @@ function App() {
   const handleNameUpdated = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
     setIsEditModalOpen(false);
-  };
+  }; // *
 
   return (
     <>
@@ -65,12 +65,11 @@ function App() {
 
       {isEditModalOpen &&
         <EditNameModal
-          name={selectedName}
+          name={selectedName} // *
           onNameUpdated={handleNameUpdated}
-          onClose={() => setIsEditModalOpen(false)}
+          onClose={() => setIsEditModalOpen(false)} // *
         />
       }
-
     </>
   )
 };

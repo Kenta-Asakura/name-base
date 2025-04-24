@@ -54,7 +54,6 @@ export const api = {
     }
   },
 
-  // ! implement
   async updateName(id, firstName, lastName) {
     try {
       const response = await fetch(`${API_URL}/names/${id}`, {
@@ -74,5 +73,9 @@ export const api = {
       console.error(`Error updating name with id ${id}:`, error);
       throw error;
     }
-  }
+  },
+
+  // async deleteName(id) {
+
+  // }
 };

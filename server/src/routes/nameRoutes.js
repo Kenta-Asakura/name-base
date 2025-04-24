@@ -16,5 +16,6 @@ nameRouter.post('/', nameController.createName);
 nameRouter.put('/:id', nameController.updateName);
 
 // Delete a name
+nameRouter.delete('/:id', nameController.deleteName);
 
 export default nameRouter;

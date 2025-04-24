@@ -43,7 +43,7 @@ export const nameController = {
       const result = await nameModel.create(body.firstName, body.lastName);
       console.log('Name created:', JSON.stringify(result, null, 2));
 
-      return c.json(result, 201);
+      return c.json(result);
     } catch (error) {
       console.error('Error creating name', error);
       return c.json({error: 'Failed to create name'}, 500);
@@ -67,6 +67,20 @@ export const nameController = {
     } catch (error) {
       console.error('Error fetching name by id', error);
       return c.json({ error: 'Failed to fetch name' }, 500);
+    }
+  },
+
+  async deleteName(c) {
+    try {
+      const id = c.req.param('id');
+
+      console.log(`Deleting name with id:${id}`);
+      const result = await nameModel.delete(id);
+
+      return c.json(result);
+    } catch (error) {
+      console.error('Error deleting name', error);
+      return c.json({ error: 'Failed to delete name' }, 500);
     }
   }
 };
