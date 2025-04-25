@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { api } from './services/api';
 
+import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
 import NameForm from './components/NameForm';
 import EditNameModal from './components/EditNameModal';
@@ -48,6 +49,9 @@ function App() {
   return (
     <>
       <div className="min-h-screen bg-base-200 p-8">
+
+        <NavBar />
+
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">Name Base</h1>
 
@@ -66,6 +70,7 @@ function App() {
             </div>
           </div>
         </div>
+
       </div>
 
       {isEditModalOpen &&
