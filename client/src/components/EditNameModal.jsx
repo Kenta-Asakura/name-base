@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
+import Modal from "./UI/Modal";
 
 function EditNameModal({ name, onNameUpdated, onClose }) {
   const [firstName, setFirstName] = useState(''); // *
@@ -30,7 +31,7 @@ function EditNameModal({ name, onNameUpdated, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <Modal>
       <div className="bg-base-100 p-4 rounded-lg shadow-xl w-96">
         <h2 className="text-xl font-bold mb-4">Edit Name</h2>
 
@@ -83,8 +84,8 @@ function EditNameModal({ name, onNameUpdated, onClose }) {
         </form>
 
       </div>
-    </div>
+    </Modal>
   );
-}
+};
 
 export default EditNameModal
