@@ -103,7 +103,7 @@ export const nameModel = {
   // delete
   async delete(id) {
     try {
-      const recordExists = this.findById(id);
+      const recordExists = await this.findById(id);
       if (!recordExists) {
         return null;
       }
@@ -112,9 +112,10 @@ export const nameModel = {
         DELETE FROM names
         WHERE id = ${id}
       `;
-      return result[0];
+      return { success: true, message: 'Record deleted successfully' };
     } catch (error) {
       console.error('Error in delete', error);
+      throw error;
     }
   }
 };
