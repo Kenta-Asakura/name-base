@@ -71,6 +71,7 @@ export const nameModel = {
       const result = await sql`
         INSERT INTO names (first_name, last_name)
         VALUES (${firstName}, ${lastName})
+        RETURNING *
       `;
       return result [0];
     } catch (error) {

@@ -12,8 +12,12 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // * Added to control modal visibility
   const [selectedName, setSelectedName] = useState(null); // * = name object containing (first, last, id)
 
+  // ! TEST
+  const [showForm, setShowForm] = useState(false);
+
   const handleNameAdded = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
+    setShowForm(false);
   };
 
   const handleEditClick = (name) => {
@@ -50,13 +54,15 @@ function App() {
     <>
       <div className="min-h-screen bg-base-200 p-8">
 
-        <NavBar />
+        <NavBar toggleForm={() => (setShowForm(true))} />
 
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">Name Base</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {showForm &&
             <NameForm onNameAdded={handleNameAdded} />
+          }
 
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
