@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../services/api";
 import Modal from "./UI/Modal";
 
-function NameForm({ onNameAdded }) {
+function NameForm({ onNameAdded, handleCancel }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -69,7 +69,15 @@ function NameForm({ onNameAdded }) {
               />
             </div>
 
-            <div className="form-control mt-3">
+            <div className="form-control mt-3 flex flex-row gap-2">
+              <button
+                type="button"
+                className="btn btn-outline"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+
               <button
                 type="submit"
                 className="btn btn-primary"
