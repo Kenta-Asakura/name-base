@@ -7,7 +7,7 @@ function Navbar({ toggleForm }) {
 
       <div className="flex-none">
         <button
-          onClick={toggleForm} // ! to be implemented
+          onClick={toggleForm}
           className="btn btn-primary btn-sm md:btn-md rounded-full"
         >
           Add Name
