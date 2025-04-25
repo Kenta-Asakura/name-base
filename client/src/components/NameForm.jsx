@@ -37,7 +37,7 @@ function NameForm({ onNameAdded }) {
           onSubmit={handleSubmit}
           className="flex flex-col gap-y-3"
         >
-          <div className="form-control">
+          <div className="form-control flex flex-col lg:flex-row gap-3 ">
             <label className="label">
               <span className="label-text">First Name</span>
             </label>
@@ -52,7 +52,7 @@ function NameForm({ onNameAdded }) {
             />
           </div>
 
-          <div className="form-control">
+          <div className="form-control flex flex-col lg:flex-row gap-3 ">
             <label className="label">
               <span className="label-text">Last Name</span>
             </label>

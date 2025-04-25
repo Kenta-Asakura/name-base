@@ -1,8 +1,9 @@
 import { useRef } from "react";
 
-function  Modal({ id, children, onClose }) {
+function Modal({ children, onClose }) {
   const overlayRef = useRef(null);
 
+  // ! Debug
   const handleOutsideClick = (e) => {
     e.target === overlayRef.current && onClose();
   };

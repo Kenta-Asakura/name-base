@@ -11,8 +11,8 @@ function EditNameModal({ name, onNameUpdated, onClose }) {
     if (name) {
       setFirstName(name.first_name);
       setLastName(name.last_name);
-    } // ! why if
-  }, [name]) // why name dependency
+    }
+  }, [name])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
