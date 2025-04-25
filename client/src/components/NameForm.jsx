@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../services/api";
 import Modal from "./UI/Modal";
 
-function NameForm({ onNameAdded, handleCancel }) {
+function NameForm({ onNameAdded, handleClose }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -30,7 +30,7 @@ function NameForm({ onNameAdded, handleCancel }) {
   };
 
   return (
-    <Modal>
+    <Modal onClose={handleClose}>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="card-title mb-2">Add New Name</h2>
@@ -73,7 +73,7 @@ function NameForm({ onNameAdded, handleCancel }) {
               <button
                 type="button"
                 className="btn btn-outline"
-                onClick={handleCancel}
+                onClick={handleClose}
               >
                 Cancel
               </button>

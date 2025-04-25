@@ -5,7 +5,7 @@ import { api } from './services/api';
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
 import NameForm from './components/NameForm';
-import EditNameModal from './components/EditNameModal';
+import EditNameForm from './components/EditNameModal';
 
 function App() {
   const [refreshCounter, setRefreshCounter] = useState(0); // * Refreshes names list
@@ -75,7 +75,7 @@ function App() {
                 <div className="card-body">
                   <NameForm
                     onNameAdded={handleNameAdded}
-                    handleCancel={() => setShowForm(false)}
+                    handleClose={() => setShowForm(false)}
                   />
                 </div>
               </div>
@@ -85,7 +85,7 @@ function App() {
       </div>
 
     {isEditModalOpen && (
-      <EditNameModal
+      <EditNameForm
         name={selectedName}
         onNameUpdated={handleNameUpdated}
         onClose={() => setIsEditModalOpen(false)}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import Modal from "./UI/Modal";
 
-function EditNameModal({ name, onNameUpdated, onClose }) {
+function EditNameForm({ name, onNameUpdated, onClose }) {
   const [firstName, setFirstName] = useState(''); // *
   const [lastName, setLastName] = useState(''); // *
 
@@ -31,7 +31,7 @@ function EditNameModal({ name, onNameUpdated, onClose }) {
   }
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <div className="bg-base-100 p-4 rounded-lg shadow-xl w-96">
         <h2 className="text-xl font-bold mb-4">Edit Name</h2>
 
@@ -88,4 +88,4 @@ function EditNameModal({ name, onNameUpdated, onClose }) {
   );
 };
 
-export default EditNameModal
+export default EditNameForm
