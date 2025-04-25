@@ -52,44 +52,52 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen bg-base-200 p-8">
+    <NavBar toggleForm={() => setShowForm(true)} />
 
-        <NavBar toggleForm={() => (setShowForm(true))} />
+    <div className="min-h-screen bg-base-200 px-4 py-20 md:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className={`card bg-base-100 shadow-xl ${!showForm ? 'lg:col-span-2' : ''}`}>
+            <div className="card-body">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="card-title">Registered Names</h2>
+                <button
+                  className="btn btn-sm btn-primary lg:hidden"
+                  onClick={() => setShowForm(!showForm)}
+                >
+                  {showForm ? 'Hide Form' : 'Add Name'}
+                </button>
+              </div>
+              <NameList
+                refresh={refreshCounter}
+                onEditClick={handleEditClick}
+                onDeleteSuccess={handleNameDeleted}
+              />
+            </div>
+          </div>
 
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-8">Name Base</h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {showForm &&
-            <NameForm
-              onNameAdded={handleNameAdded}
-              handleCancel={() => (setShowForm(false))}
-            />
-          }
-
+          {showForm && (
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
-                <h2 className="card-title">Registered Names</h2>
-                <NameList
-                  refresh={refreshCounter}
-                  onEditClick={handleEditClick}
-                  onDeleteSuccess={handleNameDeleted}
+                <NameForm
+                  onNameAdded={handleNameAdded}
+                  handleCancel={() => setShowForm(false)}
                 />
               </div>
             </div>
-          </div>
+          )}
         </div>
-
       </div>
+    </div>
 
-      {isEditModalOpen &&
-        <EditNameModal
-          name={selectedName} // *
-          onNameUpdated={handleNameUpdated}
-          onClose={() => setIsEditModalOpen(false)} // *
-        />
-      }
-    </>
+    {isEditModalOpen && (
+      <EditNameModal
+        name={selectedName}
+        onNameUpdated={handleNameUpdated}
+        onClose={() => setIsEditModalOpen(false)}
+      />
+    )}
+  </>
   )
 };
 

@@ -32,34 +32,38 @@ function NameList({ refresh, onEditClick, onDeleteSuccess }) {
     <div className="overflow-x-auto">
       <table className="table w-full">
         <thead>
-          <tr>
+          <tr className="bg-base-300">
             <th>First Name</th>
             <th>Last Name</th>
             <th>Created At</th>
-            <th>Actions</th>
+            <th className="text-center">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           {names.map((name) => (
-            <tr key={name.id}>
-              <td>{name.first_name}</td>
+            <tr key={name.id} className="hover">
+              <td className="font-medium">{name.first_name}</td>
               <td>{name.last_name}</td>
-              <td>{new Date(name.created_at).toLocaleString()}</td>
-              <td className="flex gap-2">
-                <button
-                  className="btn btn-sm btn-info"
-                  onClick={() => onEditClick(name)}
-                >
-                  Edit
-                </button>
+              <td className="text-sm opacity-75">{new Date(name.created_at).toLocaleString()}</td>
+              <td>
+                <div className="flex justify-center gap-2">
+                  <button
+                    className="btn btn-xs btn-outline btn-info"
+                    onClick={() => onEditClick(name)}
+                    aria-label={`Edit ${name.first_name} ${name.last_name}`}
+                  >
+                    Edit
+                  </button>
 
-                <button
-                  className="btn btn-sm btn-error"
-                  onClick={() => handleDeleteClick(name.id)}
-                >
-                  Delete
-                </button>
+                  <button
+                    className="btn btn-xs btn-outline btn-error"
+                    onClick={() => handleDeleteClick(name.id)}
+                    aria-label={`Delete ${name.first_name} ${name.last_name}`}
+                  >
+                    Delete
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
