@@ -11,6 +11,9 @@ function Navbar({ toggleForm }) {
     isLoading
   } = useAuth0();
 
+  // !TEST
+  // console.log('user', user);
+
   return (
     <div className="navbar bg-base-300 fixed top-0 left-0 right-0 z-50 shadow-md px-4">
       <div className="flex-1">

@@ -1,7 +1,6 @@
 import './App.css';
 import { useState } from 'react';
 import { api } from './services/api';
-// import { useAuth0 } from '@auth0/auth0-react'; // ! TEST
 
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
@@ -14,15 +13,6 @@ function App() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
-
-  // ! TEST
-  // const {
-  //   loginWithPopup,
-  //   loginWithRedirect,
-  //   logout,
-  //   user,
-  //   isAuthenticated
-  // } = useAuth0();
 
   const handleNameAdded = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
