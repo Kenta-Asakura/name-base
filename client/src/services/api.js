@@ -93,5 +93,7 @@ export const api = {
       console.error(`Error deleting name with id ${id}:`, error);
       throw error;
     }
-  }
+  },
+
+  // ! TEST
 };
