@@ -46,8 +46,6 @@ async function getSigningKey(kid) {
 };
 
 // Middleware
-
-
 export const jwtMiddleware = async (c, next) => {
   // ! TEST
   // console.log(c.req.header);

@@ -8,16 +8,16 @@ const nameRouter = new Hono();
 nameRouter.get('/', nameController.getAllNames);
 
 // Get a single name by id
-nameRouter.get('/:id', nameController.getNameById);
+// nameRouter.get('/:id', nameController.getNameById);
 
 // Create a new name
-nameRouter.post('/', nameController.createName);
+// nameRouter.post('/', nameController.createName);
 
 // Update a name
-nameRouter.put('/:id', nameController.updateName);
+// nameRouter.put('/:id', nameController.updateName);
 
 // Delete a name
-nameRouter.delete('/:id', nameController.deleteName);
+// nameRouter.delete('/:id', nameController.deleteName);
 
 // Protected routes
 nameRouter.post('/', jwtMiddleware, nameController.createName);

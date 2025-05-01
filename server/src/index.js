@@ -16,10 +16,9 @@ const app = new Hono();
 // Middleware
 app.use('*', cors());
 
-// ! Middlware to be implemented
-app.use('/protected', jwtMiddleware);
-
-app.get('/protected', (c) => {
+// Protected route
+// app.use('/protected', jwtMiddleware);
+app.get('/protected', jwtMiddleware, (c) => {
   return c.json({ status: 'Access granted to protected route' });
 });
 

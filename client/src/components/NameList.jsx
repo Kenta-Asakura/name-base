@@ -1,8 +1,10 @@
 import { api } from '../services/api';
 import { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function NameList({ refresh, onEditClick, onDeleteSuccess }) {
   const [names, setNames] = useState([]);
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const fetchNames = async () => {
     try {
@@ -15,7 +17,8 @@ function NameList({ refresh, onEditClick, onDeleteSuccess }) {
 
   const handleDeleteClick = async (id) => {
     try {
-      await api.deleteName(id);
+      const token = await getAccessTokenSilently();
+      await api.deleteName(id, token);
 
       onDeleteSuccess();  // This triggers a refresh of the whole list
     } catch (err) {

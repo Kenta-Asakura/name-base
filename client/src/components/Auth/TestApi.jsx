@@ -1,9 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 
 function TestApi() {
-  const {
-    getAccessTokenSilently
-  } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   function callApi() {
     fetch('http://localhost:3001/')
@@ -66,9 +64,9 @@ function TestApi() {
       }
 
       const data = await response.json();
-      console.log(data);
+      console.log('Protected API response:', data);
     } catch (error) {
-      console.error('await error:', error.message);
+      console.error('Protected API error:', error);
     }
   };
 

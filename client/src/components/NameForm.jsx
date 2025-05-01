@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { api } from "../services/api";
 import Modal from "./UI/Modal";
+import { useAuth0 } from '@auth0/auth0-react';
 
 function NameForm({ onNameAdded, handleClose }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +17,8 @@ function NameForm({ onNameAdded, handleClose }) {
     }
 
     try {
-      const result = await api.addName(firstName, lastName);
+      const token = await getAccessTokenSilently();
+      const result = await api.addName(firstName, lastName, token);
 
       setFirstName('');
       setLastName('');

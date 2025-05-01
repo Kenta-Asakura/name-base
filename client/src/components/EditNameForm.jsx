@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import Modal from "./UI/Modal";
+import { useAuth0 } from '@auth0/auth0-react';
 
 function EditNameForm({ name, onNameUpdated, onClose }) {
   const [firstName, setFirstName] = useState(''); // *
   const [lastName, setLastName] = useState(''); // *
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   // Sets/resets name
   useEffect(() => {
@@ -12,7 +14,7 @@ function EditNameForm({ name, onNameUpdated, onClose }) {
       setFirstName(name.first_name);
       setLastName(name.last_name);
     }
-  }, [name])
+  }, [name]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,9 @@ function EditNameForm({ name, onNameUpdated, onClose }) {
     }
 
     try {
-      await api.updateName(name.id, firstName, lastName);
+      const token = await getAccessTokenSilently();
+      await api.updateName(name.id, firstName, lastName, token);
+
       onNameUpdated(); // Notify parent about successful update
     } catch (err) {
       console.error('Error updating name:', err);
