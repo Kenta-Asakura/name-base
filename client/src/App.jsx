@@ -56,8 +56,9 @@ function App() {
 
       {/* Names Table */}
       <div className="min-h-screen bg-base-200 px-4 py-20 md:px-8">
+
       {/* ! TEST */}
-      <TestApi></TestApi>
+      {/* <TestApi></TestApi> */}
 
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -85,14 +86,10 @@ function App() {
             </div>
 
             {showForm && (
-              <div className="card bg-base-100 shadow-xl">
-                <div className="card-body">
-                  <NameForm
-                    onNameAdded={handleNameAdded}
-                    handleClose={() => setShowForm(false)}
-                  />
-                </div>
-              </div>
+              <NameForm
+                onNameAdded={handleNameAdded}
+                handleClose={() => setShowForm(false)}
+              />
             )}
           </div>
         </div>
