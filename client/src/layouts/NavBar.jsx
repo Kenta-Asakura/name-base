@@ -22,17 +22,23 @@ function Navbar({ toggleForm }) {
 
       <div className="flex gap-2">
         {isAuthenticated && (
-          <button
-            onClick={toggleForm}
-            className="btn btn-primary btn-sm md:btn-md rounded-full"
-          >
-            Add Name
-          </button>
+            <button
+             onClick={toggleForm}
+             className="btn btn-outline btn-xs md:btn-sm rounded-full flex items-center justify-center gap-1 h-8"
+           >
+             <span className="hidden md:inline-block text-sm">Add Name</span>
+
+             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+             </svg>
+           </button>
         )}
 
         {!isLoading && (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div tabIndex={0} role="button"
+              className="btn btn-ghost btn-circle avatar h-8 w-8 min-h-0"
+            >
               {isAuthenticated ? (
                 <div className="w-10 rounded-full">
                   <img
@@ -45,7 +51,9 @@ function Navbar({ toggleForm }) {
                   />
                 </div>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  className="inline-block w-5 h-5 stroke-current"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
                 </svg>
               )}
