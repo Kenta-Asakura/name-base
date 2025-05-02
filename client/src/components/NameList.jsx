@@ -39,7 +39,7 @@ function NameList({ refresh, onEditClick, onDeleteSuccess }) {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Created At</th>
-            <th className="text-center">Actions</th>
+            {isAuthenticated && <th className="text-center">Actions</th>}
           </tr>
         </thead>
 
@@ -49,25 +49,27 @@ function NameList({ refresh, onEditClick, onDeleteSuccess }) {
               <td className="font-medium">{name.first_name}</td>
               <td>{name.last_name}</td>
               <td className="text-sm opacity-75">{new Date(name.created_at).toLocaleString()}</td>
-              <td>
-                <div className="flex justify-center gap-2">
-                  <button
-                    className="btn btn-xs btn-outline btn-info"
-                    onClick={() => onEditClick(name)}
-                    aria-label={`Edit ${name.first_name} ${name.last_name}`}
-                  >
-                    Edit
-                  </button>
+              {isAuthenticated &&
+                <td>
+                  <div className="flex justify-center gap-2">
+                    <button
+                      className="btn btn-xs btn-outline btn-info"
+                      onClick={() => onEditClick(name)}
+                      aria-label={`Edit ${name.first_name} ${name.last_name}`}
+                    >
+                      Edit
+                    </button>
 
-                  <button
-                    className="btn btn-xs btn-outline btn-error"
-                    onClick={() => handleDeleteClick(name.id)}
-                    aria-label={`Delete ${name.first_name} ${name.last_name}`}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </td>
+                    <button
+                      className="btn btn-xs btn-outline btn-error"
+                      onClick={() => handleDeleteClick(name.id)}
+                      aria-label={`Delete ${name.first_name} ${name.last_name}`}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              }
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { api } from './services/api';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
@@ -16,6 +17,8 @@ function App() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const { isAuthenticated } = useAuth0();
+
 
   const handleNameAdded = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
@@ -62,12 +65,15 @@ function App() {
               <div className="card-body">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="card-title">Registered Names</h2>
-                  <button
-                    className="btn btn-sm btn-primary lg:hidden"
-                    onClick={() => setShowForm(!showForm)}
-                  >
-                    {showForm ? 'Hide Form' : 'Add Name'}
-                  </button>
+
+                  {isAuthenticated &&
+                    <button
+                      className="btn btn-sm btn-primary lg:hidden"
+                      onClick={() => setShowForm(!showForm)}
+                    >
+                      {showForm ? 'Hide Form' : 'Add Name'}
+                    </button>
+                  }
                 </div>
 
                 <NameList
