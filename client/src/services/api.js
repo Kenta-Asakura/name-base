@@ -1,22 +1,20 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 console.log('API URL being used:', API_URL); // ! For debugging
 
+// Common headers for all requests
+const getHeaders = (token) => {
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return headers;
+};
+
 export const api = {
-  async fetchWithAuth(url, options = {}) {
-    try {
-      const response = await fetch(url, options);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('API request failed:', error);
-      throw error;
-    }
-  },
-
   async getNames() {
     try {
       console.log('Fetching from:', `${API_URL}/names`);
@@ -35,12 +33,8 @@ export const api = {
 
   async getNameById(id, token) {
     try {
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
+      const headers = getHeaders(token);
 
-      // const response = await fetch(`${API_URL}/names/${id}`); // ?
       const response = await fetch(`${API_URL}/names/${id}`, {
         headers
       }); // ?
@@ -59,11 +53,13 @@ export const api = {
   async addName(firstName, lastName, token) {
     try {
       // const headers = await this.getAuthHeaders();
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
+      // const headers = {
+      //   'Authorization': `Bearer ${token}`,
+      //   'Content-Type': 'application/json'
+      // };
+      const headers = getHeaders(token);
 
+      // const response = await fetch(`${API_URL}/names/${id}`); // ?
       const response = await fetch(`${API_URL}/names`, { // *
         method: 'POST',
         // headers: {
@@ -86,17 +82,10 @@ export const api = {
 
   async updateName(id, firstName, lastName, token) {
     try {
-      // const headers = await this.getAuthHeaders();
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
+      const headers = getHeaders(token);
 
       const response = await fetch(`${API_URL}/names/${id}`, {
         method: 'PUT',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
         headers,
         body: JSON.stringify({ firstName, lastName }),
       });
@@ -114,17 +103,10 @@ export const api = {
 
   async deleteName(id, token) {
     try {
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
+      const headers = getHeaders(token);
 
-      // const headers = await this.getAuthHeaders();
       const response = await fetch(`${API_URL}/names/${id}`, {
         method: 'DELETE',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
         headers,
       });
 
