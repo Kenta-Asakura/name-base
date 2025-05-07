@@ -27,7 +27,6 @@ function App() {
 
   const handleEditClick = (name) => {
     setSelectedName(name);
-    // ! TEST - show SharedNameForm
     setShowForm(true);
   };
 
@@ -35,11 +34,10 @@ function App() {
     setRefreshCounter(prevCounter => prevCounter + 1);
   };
 
-  // ! To be implemented - Handler for form close/cancel
-  // const handleFormClose = () => {
-  //   setShowForm(false);
-  //   setSelectedName(null); // Important: reset selected name when closing form
-  // };
+  const handleFormClose = () => {
+    setShowForm(false);
+    setSelectedName(null); // Important: reset selected name when closing form
+  };
 
   return (
     <>
@@ -59,12 +57,12 @@ function App() {
                   <h2 className="card-title">Registered Names</h2>
 
                   {isAuthenticated &&
-                    // ! TEST - SharedNameForm
                     <button
                       className="btn btn-sm btn-primary lg:hidden"
                       onClick={() => {
-                        setSelectedName(null); // Reset when toggling form
-                        setShowForm(!showForm);
+                        showForm ?
+                          handleFormClose() :
+                          setShowForm(true)
                       }}
                     >
                       {showForm ? 'Hide Form' : 'Add Name'}
@@ -89,7 +87,7 @@ function App() {
         <SharedNameForm
           name={selectedName}
           onSuccess={handleNameSaved}
-          onClose={() => setShowForm(false)}
+          onClose={handleFormClose}
           title={isEditMode ? "Edit Name" : "Add New Name"}
           submitButtonText={isEditMode ? "Save" : "Add Name"}
         />
