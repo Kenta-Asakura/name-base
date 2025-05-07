@@ -52,19 +52,11 @@ export const api = {
 
   async addName(firstName, lastName, token) {
     try {
-      // const headers = await this.getAuthHeaders();
-      // const headers = {
-      //   'Authorization': `Bearer ${token}`,
-      //   'Content-Type': 'application/json'
-      // };
       const headers = getHeaders(token);
 
       // const response = await fetch(`${API_URL}/names/${id}`); // ?
       const response = await fetch(`${API_URL}/names`, { // *
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
         headers,
         body: JSON.stringify({ firstName, lastName }),
       });

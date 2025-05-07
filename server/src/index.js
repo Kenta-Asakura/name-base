@@ -17,10 +17,11 @@ const app = new Hono();
 app.use('*', cors());
 
 // Protected route
+// ! TEST
 // app.use('/protected', jwtMiddleware);
-app.get('/protected', jwtMiddleware, (c) => {
-  return c.json({ status: 'Access granted to protected route' });
-});
+// app.get('/protected', jwtMiddleware, (c) => {
+//   return c.json({ status: 'Access granted to protected route' });
+// });
 
 // Health check route
 app.get('/', (c) => c.json({ status: 'Server is running' }));

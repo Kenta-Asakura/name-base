@@ -1,12 +1,10 @@
 import './App.css';
 import { useState } from 'react';
-import { api } from './services/api';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
-import NameForm from './components/NameForm';
-import EditNameForm from './components/EditNameForm';
+import SharedNameForm from './components/SharedNameForm';
 
 // ! TEST
 import TestApi from './components/Auth/TestApi';
@@ -14,41 +12,34 @@ import TestApi from './components/Auth/TestApi';
 function App() {
   const [refreshCounter, setRefreshCounter] = useState(0); // * Refreshes names list
   const [selectedName, setSelectedName] = useState(null); // * = name object containing (first, last, id)
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const { isAuthenticated } = useAuth0();
 
+  // Determine if we're in edit mode
+  const isEditMode = selectedName !== null;
 
-  const handleNameAdded = () => {
+  // Combined handler for both add and edit operations
+  const handleNameSaved = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
     setShowForm(false);
+    setSelectedName(null);
   };
 
   const handleEditClick = (name) => {
-    const id = name.id;
     setSelectedName(name);
-    setIsEditModalOpen(true);
-
-    async () => {
-      try {
-        console.log(`Edit button clicked for id: ${id}`);
-        const name = await api.getNameById(id);
-        console.log('Retrieved name:', name);
-      } catch (err) {
-        console.error('Error fetching name details:', err);
-      }
-    };
-  };
-
-  const handleNameUpdated = () => {
-    setRefreshCounter(prevCounter => prevCounter + 1);
-    setIsEditModalOpen(false);
+    // ! TEST - show SharedNameForm
+    setShowForm(true);
   };
 
   const handleNameDeleted = () => {
     setRefreshCounter(prevCounter => prevCounter + 1);
   };
+
+  // ! To be implemented - Handler for form close/cancel
+  // const handleFormClose = () => {
+  //   setShowForm(false);
+  //   setSelectedName(null); // Important: reset selected name when closing form
+  // };
 
   return (
     <>
@@ -68,9 +59,13 @@ function App() {
                   <h2 className="card-title">Registered Names</h2>
 
                   {isAuthenticated &&
+                    // ! TEST - SharedNameForm
                     <button
                       className="btn btn-sm btn-primary lg:hidden"
-                      onClick={() => setShowForm(!showForm)}
+                      onClick={() => {
+                        setSelectedName(null); // Reset when toggling form
+                        setShowForm(!showForm);
+                      }}
                     >
                       {showForm ? 'Hide Form' : 'Add Name'}
                     </button>
@@ -85,21 +80,18 @@ function App() {
               </div>
             </div>
 
-            {showForm && (
-              <NameForm
-                onNameAdded={handleNameAdded}
-                handleClose={() => setShowForm(false)}
-              />
-            )}
           </div>
         </div>
       </div>
 
-      {isEditModalOpen && (
-        <EditNameForm
+      {/* New Shared Form */}
+      {showForm && (
+        <SharedNameForm
           name={selectedName}
-          onNameUpdated={handleNameUpdated}
-          onClose={() => setIsEditModalOpen(false)}
+          onSuccess={handleNameSaved}
+          onClose={() => setShowForm(false)}
+          title={isEditMode ? "Edit Name" : "Add New Name"}
+          submitButtonText={isEditMode ? "Save" : "Add Name"}
         />
       )}
     </>

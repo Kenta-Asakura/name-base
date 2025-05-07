@@ -39,9 +39,9 @@ export const nameController = {
         return c.json({ error: 'First name and last name are required' }, 400);
       }
 
-      console.log('Creating new name:', body);
+      // console.log('Creating new name:', body);
       const result = await nameModel.create(body.firstName, body.lastName);
-      console.log('Name created:', JSON.stringify(result, null, 2));
+      // console.log('Name created:', JSON.stringify(result, null, 2));
 
       return c.json(result);
     } catch (error) {

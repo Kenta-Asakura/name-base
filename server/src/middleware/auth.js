@@ -8,19 +8,7 @@ dotenv.config();
 const issuer = 'https://dev-zq1073bqh6k174ua.jp.auth0.com/';
 const audience = process.env.VITE_AUTH0_AUDIENCE;
 
-// For signing keys - jwksClient instance
-// Express way  (old)
-// const verifyJwt = jwt({
-//   secret: jwksClient.expressJwtSecret({
-//     cache: true,
-//     rateLimit: true,
-//     jwksRequestsPerMinute: 5,
-//   }),
-//   audience: process.env.AUTH0_AUDIENCE,
-//   issuer: 'https://dev-zq1073bqh6k174ua.jp.auth0.com/',
-//   algorithms: ['RS256']
-// });
-
+// JWKS Client Setup - to fetch public keys for verifying tokens
 const client = jwksClient({
   cache: true,
   rateLimit: true,
@@ -34,13 +22,13 @@ const client = jwksClient({
 // Function to get the signing key
 async function getSigningKey(kid) {
   const key = await client.getSigningKey(kid);
-  // console.log(key); // ! TEST
+  // console.log('key', key); // ! TEST
 
   const publicKeyPem = key.getPublicKey(); // PEM string
-  // console.log(publicKeyPem); // ! TEST
+  // console.log('publicKeyPem', publicKeyPem); // ! TEST
 
   const keyObject = createPublicKey(publicKeyPem); // Convert to KeyObject
-  // console.log(keyObject); // ! TEST
+  // console.log('keyObject', keyObject); // ! TEST
 
   return keyObject;
 };
@@ -73,13 +61,13 @@ export const jwtMiddleware = async (c, next) => {
     }
 
     const publicKey = await getSigningKey(kid);
-    console.log('publicKey -', publicKey); // ! TEST
+    // console.log('publicKey -', publicKey); // ! TEST
 
     const { payload } = await jwtVerify(token, publicKey, {
       issuer,
       audience,
     });
-    console.log('JWT verified, payload:', payload);
+    // console.log('JWT verified, payload:', payload);
 
     // Store user info in the context for route handlers
     c.set('user', payload);
