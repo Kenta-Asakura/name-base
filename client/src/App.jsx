@@ -56,6 +56,7 @@ function App() {
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="card-title">Registered Names</h2>
 
+                  {/* Mobile Add Name Button */}
                   {isAuthenticated &&
                     <button
                       className="btn btn-sm btn-primary lg:hidden"
@@ -82,13 +83,12 @@ function App() {
         </div>
       </div>
 
-      {/* New Shared Form */}
       {showForm && (
         <SharedNameForm
           name={selectedName}
           onSuccess={handleNameSaved}
           onClose={handleFormClose}
-          title={isEditMode ? "Edit Name" : "Add New Name"}
+          formTitle={isEditMode ? "Edit Name" : "Add New Name"}
           submitButtonText={isEditMode ? "Save" : "Add Name"}
         />
       )}
