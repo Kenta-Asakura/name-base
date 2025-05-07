@@ -12,11 +12,8 @@ function SharedNameForm({
 }) {
   const [firstName, setFirstName] = useState(''); // *
   const [lastName, setLastName] = useState(''); // *
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-
-  // ! TEST
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   // Set initial values if editing (when name prop is provided)
   useEffect(() => {
@@ -63,8 +60,6 @@ function SharedNameForm({
     }
 
     try {
-      setIsSubmitting(true); // Start loading state
-
       const token = await getAccessTokenSilently();
 
       if (name) {
