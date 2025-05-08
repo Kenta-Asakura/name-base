@@ -39,16 +39,18 @@ export const jwtMiddleware = async (c, next) => {
   // console.log(c.req.header);
   // console.log([...c.req.raw.headers]);
 
+  // 1. Extract the token from the Authorization header
   const authHeader = c.req.header('Authorization');
 
   if (!authHeader || !authHeader.startsWith('Bearer')) {
     console.log('Missing or invalid Authorization header');
-    return c.json({ error: 'Unauthorized' }, 401);
+  return c.json({ error: 'Unauthorized' }, 401);
   }
 
   const token = authHeader.split(' ')[1];
 
   try {
+    // 2. Decode the token header to get the kid
     const header = decodeProtectedHeader(token);
     // console.log(header); // ! TEST
 
@@ -60,19 +62,22 @@ export const jwtMiddleware = async (c, next) => {
       return c.json({ error: 'Invalid token header' }, 401);
     }
 
+    // 3. Get the public key for verification
     const publicKey = await getSigningKey(kid);
     // console.log('publicKey -', publicKey); // ! TEST
 
+    // 4. Verify the token
     const { payload } = await jwtVerify(token, publicKey, {
       issuer,
       audience,
     });
     // console.log('JWT verified, payload:', payload);
 
-    // Store user info in the context for route handlers
+    // 5. Store user info in the context for route handlers
     c.set('user', payload);
 
-    await next(); // Proceed to actual route handler
+    // 6. Continue to the route handler
+    await next();
   } catch (err) {
     console.log('JWT verification failed:', err.message);
     return c.json({ error: 'Invalid token' }, 401);
