@@ -1,6 +1,13 @@
 import { nameModel } from "../models/nameModel.js";
 import { handleError } from "../utils/errorHandler.js";
 
+const validateNameFields = (body) => {
+  const { firstName, lastName } = body;
+  if (!firstName || !lastName) {
+    throw new Error('First name and last name are required');
+  }
+};
+
 export const nameController = {
   async getAllNames(c) {
     try {
@@ -18,9 +25,7 @@ export const nameController = {
       const id = c.req.param('id');
       const name = await nameModel.findById(id);
 
-      if (!name) {
-        throw new Error('Name not found');
-      }
+      if (!name) throw new Error('Name not found');
 
       return c.json(name);
     } catch (error) {
@@ -31,14 +36,10 @@ export const nameController = {
   async createName(c) {
     try {
       const body = await c.req.json();
+      validateNameFields(body);
 
-      if (!body.firstName || !body.lastName) {
-        throw new Error('First name and last name are required');
-      }
-
-      // console.log('Creating new name:', body);
+      console.log('Creating new name:', body);
       const result = await nameModel.create(body.firstName, body.lastName);
-      // console.log('Name created:', JSON.stringify(result, null, 2));
 
       return c.json(result, 201);
     } catch (error) {
@@ -50,10 +51,7 @@ export const nameController = {
     try {
       const id = c.req.param('id');
       const body = await c.req.json();
-
-      if (!body.firstName || !body.lastName) {
-        throw new Error('First name and last name are required');
-      }
+      validateNameFields(body);
 
       console.log(`Updating name with id: ${id}`, body);
       const result = await nameModel.update(id, body.firstName, body.lastName);
@@ -71,9 +69,7 @@ export const nameController = {
       console.log(`Deleting name with id:${id}`);
       const result = await nameModel.delete(id);
 
-      if (!result || !result.success) {
-        throw new Error(`Name with id ${id} not found`);
-      }
+      if (!result?.success) throw new Error(`Name with id ${id} not found`);
 
       return c.json(result);
     } catch (error) {
