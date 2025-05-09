@@ -36,7 +36,7 @@ function App() {
 
   const handleFormClose = () => {
     setShowForm(false);
-    setSelectedName(null); // Important: reset selected name when closing form
+    setSelectedName(null);
   };
 
   return (
