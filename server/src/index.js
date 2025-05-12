@@ -38,7 +38,7 @@ app.get('/protected', (c) => c.json({ status: 'Hello from protected route' }));
 
 // ! Debug - show environment variables
 // app.get('/debug/env', (c) => {
-//   return c.json({
+//   return c.json{
 //     dbHost: process.env.DB_HOST || 'not set',
 //     dbPort: process.env.DB_PORT || 'not set',
 //     dbUser: process.env.DB_USER || 'not set',
