@@ -5,9 +5,11 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
 import SharedNameForm from './components/SharedNameForm';
+import AdminTest from './components/Auth/AdminTest';
 
 // ! TEST
-import TestApi from './components/Auth/TestApi';
+// import TestApi from './components/Auth/TestApi';
+import './components/Auth/AdminTest'
 
 function App() {
   const [refreshCounter, setRefreshCounter] = useState(0); // * Refreshes names list
@@ -45,7 +47,6 @@ function App() {
 
       {/* Names Table */}
       <div className="min-h-screen bg-base-200 px-4 py-20 md:px-8">
-
       {/* ! TEST */}
       {/* <TestApi></TestApi> */}
 
@@ -80,6 +81,8 @@ function App() {
             </div>
 
           </div>
+          {/* ! TEST */}
+          {/* {isAuthenticated && <AdminTest />} */}
         </div>
       </div>
 

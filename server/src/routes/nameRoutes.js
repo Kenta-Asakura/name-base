@@ -2,27 +2,24 @@ import { Hono } from "hono";
 import { nameController } from "../controllers/nameController.js";
 import { jwtMiddleware } from "../middleware/auth.js";
 
+// ! TEST
+
 const nameRouter = new Hono();
 
-// Get all names
 nameRouter.get('/', nameController.getAllNames);
 
-// Get a single name by id
-// nameRouter.get('/:id', nameController.getNameById);
-
-// Create a new name
-// nameRouter.post('/', nameController.createName);
-
-// Update a name
-// nameRouter.put('/:id', nameController.updateName);
-
-// Delete a name
-// nameRouter.delete('/:id', nameController.deleteName);
-
-// Protected routes
+// - Protected routes
 nameRouter.post('/', jwtMiddleware, nameController.createName);
 nameRouter.put('/:id', jwtMiddleware, nameController.updateName);
 nameRouter.delete('/:id', jwtMiddleware, nameController.deleteName);
 nameRouter.get('/:id', jwtMiddleware, nameController.getNameById);
+// Admin-only route - only admins can delete
+// nameRouter.delete('/:id', jwtMiddleware, nameController.deleteName);
+
+// - Protected routes with specific permissions
+// nameRouter.post('/', jwtMiddleware, checkPermission('create:names'), nameController.createName);
+// nameRouter.put('/:id', jwtMiddleware, checkPermission('update:names'), nameController.updateName);
+// nameRouter.delete('/:id', jwtMiddleware, checkPermission('delete:names'), nameController.deleteName);
+// nameRouter.get('/:id', jwtMiddleware, checkPermission('read:names'), nameController.getNameById);
 
 export default nameRouter;

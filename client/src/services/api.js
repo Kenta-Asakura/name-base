@@ -1,5 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-// console.log('API URL being used:', API_URL); // ! For debugging
+console.log('API URL being used:', API_URL); // !Debug
 
 // Common headers for all requests
 const getHeaders = (token) => {
@@ -11,6 +11,7 @@ const getHeaders = (token) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
+  // console.log('headers', headers); // !Debug
   return headers;
 };
 

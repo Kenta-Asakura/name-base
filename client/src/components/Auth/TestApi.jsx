@@ -53,6 +53,7 @@ function TestApi() {
   const callProtectedApi = async () => {
     try {
       const token = await getAccessTokenSilently();
+      // console.log(token); // ! TEST
       const response = await fetch('http://localhost:3001/protected', {
         headers: {
           authorization: `Bearer ${token}`

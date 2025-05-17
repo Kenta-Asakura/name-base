@@ -75,5 +75,38 @@ export const nameController = {
     } catch (error) {
       return handleError(c, error, 'deleting name');
     }
-  }
+  },
+
+  // !TEST 
+//   async deleteName(c) {
+//     try {
+//       const id = c.req.param('id');
+//       const user = c.get('user');
+      
+//       // Check if user is admin using the custom namespace
+//       const namespace = 'https://name-base-api/';
+//       const roles = user[`${namespace}roles`] || [];
+      
+//       const isAdmin = Array.isArray(roles) ? roles.includes('Admin') : false;
+      
+//       if (!isAdmin) {
+//         console.log('Delete attempt by non-admin user:', user?.sub);
+//         return c.json({ 
+//           success: false, 
+//           error: 'Admin privileges required to delete' 
+//         }, 403);
+//       }
+
+//       console.log(`Deleting name with id:${id}`);
+//       const result = await nameModel.delete(id);
+
+//       if (!result || !result.success) {
+//         throw new Error(`Name with id ${id} not found`);
+//       }
+
+//       return c.json(result);
+//     } catch (error) {
+//       return handleError(c, error, 'deleting name');
+//     }
+//   }
 };
