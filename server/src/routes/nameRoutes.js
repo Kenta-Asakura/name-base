@@ -13,8 +13,8 @@ nameRouter.post('/', jwtMiddleware, nameController.createName);
 nameRouter.put('/:id', jwtMiddleware, nameController.updateName);
 nameRouter.delete('/:id', jwtMiddleware, nameController.deleteName);
 nameRouter.get('/:id', jwtMiddleware, nameController.getNameById);
+
 // Admin-only route - only admins can delete
-// nameRouter.delete('/:id', jwtMiddleware, nameController.deleteName);
 
 // - Protected routes with specific permissions
 // nameRouter.post('/', jwtMiddleware, checkPermission('create:names'), nameController.createName);

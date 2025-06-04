@@ -18,7 +18,7 @@ const client = jwksClient({
   jwksRequestsPerMinute: 5,
   jwksUri: `${issuer}.well-known/jwks.json`,
 });
-// console.log('client', client); // !Debug
+console.log('client', client); // !Debug
 
 // !Debug
 // const token = await getAccessTokenSilently();
@@ -32,14 +32,12 @@ async function getSigningKey(kid) {
   // console.log('publicKeyPem', publicKeyPem); // !Debug
   const keyObject = createPublicKey(publicKeyPem); // Convert to KeyObject
   // console.log('keyObject', keyObject); // !Debug
-
-  // console.log('keyObject', keyObject);
   return keyObject;
 };
 
 // Middleware
 export const jwtMiddleware = async (c, next) => {
-  // console.log([...c.req.raw.headers]); // !Debug
+  console.log([...c.req.raw.headers]); // !Debug
 
   // 1. Extract the token from the Authorization header
   const authHeader = c.req.header('Authorization');
@@ -54,7 +52,7 @@ export const jwtMiddleware = async (c, next) => {
   try {
     // 2. Decode the token header to get the kid
     const header = decodeProtectedHeader(token);
-    // console.log('header', header); // !Debug 
+    console.log('header', header); // !Debug 
     
     // !Debug
     // const permissions = getPermissionsFromToken(token);
@@ -89,43 +87,12 @@ export const jwtMiddleware = async (c, next) => {
     }
 
     // !Debug
-    // Inside the jwtMiddleware, after token verification:
-    // console.log('=== JWT PAYLOAD ===');
-    // console.log(JSON.stringify(payload, null, 2));
-    // console.log('=== PERMISSIONS ===');
-    // console.log(payload.permissions); 
-    // console.log(payload['https://name-base-api/permissions']);
-    // console.log('=== ROLES ===');
-    // console.log(payload.roles);
-    // console.log(payload['https://name-base-api/roles']);
-        
-    // Check for roles - Auth0 typically uses a namespace for custom claims
-    // const namespace = 'https://nam2e-base-api/';
-    // if (payload[`${namespace}roles`]) {
-    //   c.set('roles', payload[`${namespace}roles`]);
-    // }
-
-    // Log the entire payload to see all available claims
-    // console.log('JWT verified, payload:', payload);
-    // console.log('Complete JWT payload:', JSON.stringify(payload, null, 2));
-
-    // 5. Store user info in the context for route handlers
-    // c.set('user', payload);
-    // c.set('user', 
-    //   ...payload,
-    //   permissions
-    // );
-
-    // !Debug
    const namespace = 'https://name-base-api/';
     if (payload[`${namespace}roles`]) {
       c.set('roles', payload[`${namespace}roles`]);
     } else if (payload.roles) {
       c.set('roles', payload.roles);
     }
-
-    // console.log('Permissions:', permissions);
-    // console.log('Roles:', roles);
 
     c.set('user', payload);
 

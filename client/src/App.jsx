@@ -5,11 +5,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import NavBar from './layouts/NavBar';
 import NameList from './components/NameList';
 import SharedNameForm from './components/SharedNameForm';
-import AdminTest from './components/Auth/AdminTest';
 
 // ! TEST
 // import TestApi from './components/Auth/TestApi';
-import './components/Auth/AdminTest'
 
 function App() {
   const [refreshCounter, setRefreshCounter] = useState(0); // * Refreshes names list
@@ -81,8 +79,6 @@ function App() {
             </div>
 
           </div>
-          {/* ! TEST */}
-          {/* {isAuthenticated && <AdminTest />} */}
         </div>
       </div>
 
