@@ -8,8 +8,6 @@ import { jwtMiddleware } from "../src/middleware/auth.js";
 import nameRouter from './routes/nameRoutes.js';
 import testRouter from './routes/testRoutes.js';
 
-import adminRouter from './routes/adminRoutes.js'; 
-
 // Load environment variables
 dotenv.config();
 
@@ -31,7 +29,6 @@ app.get('/', (c) => c.json({ status: 'Server is running' }));
 // Routes
 // - Query all names
 app.route('/names', nameRouter);
-app.route('/admin', adminRouter); // !TEST
 
 // ! TEST - postgreSQL query
 // app.route('/api/test', testRouter);

@@ -15,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         scope: 'openid profile email offline_access read:names create:names update:names delete:names admin:access',
       }}
       cacheLocation="localstorage"
+      useRefreshTokens={true}
     >
       <App />
     </Auth0Provider>
