@@ -80,23 +80,25 @@ export const jwtMiddleware = async (c, next) => {
       audience,
     });
 
-    // !Debug
+    // !TEST
     // After token verification, store user permissions in context
     if (payload.permissions) {
       c.set('permissions', payload.permissions);
     }
 
-    // !Debug
-   const namespace = 'https://name-base-api/';
-    if (payload[`${namespace}roles`]) {
-      c.set('roles', payload[`${namespace}roles`]);
-    } else if (payload.roles) {
-      c.set('roles', payload.roles);
+    // !TEST
+    // 5. Extract and store roles in context
+    const namespace = 'https://name-base-api/';
+      if (payload[`${namespace}roles`]) {
+        c.set('roles', payload[`${namespace}roles`]);
+      } else if (payload.roles) {
+        c.set('roles', payload.roles);
     }
 
+    // 6. Store user data in context
     c.set('user', payload);
 
-    // 6. Continue to the route handler
+    // Continue to the route handler
     await next();
   } catch (err) {
     console.log('JWT verification failed:', err.message);
