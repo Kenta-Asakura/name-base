@@ -3,7 +3,7 @@ import { nameController } from "../controllers/nameController.js";
 import { jwtMiddleware } from "../middleware/auth.js";
 
 // ! TEST
-import { requireDeletePermission } from "../middleware/permissions.js";
+import { requirePermission } from "../middleware/permissions.js";
 
 // ! TEST
 const nameRouter = new Hono();
@@ -19,7 +19,7 @@ nameRouter.put('/:id', jwtMiddleware, nameController.updateName);
 // Admin-only route - only admins can delete
 // - Protected routes with specific permissions
 // ! TEST
-nameRouter.delete('/:id', jwtMiddleware, requireDeletePermission, nameController.deleteName);
+nameRouter.delete('/:id', jwtMiddleware, requirePermission('delete:names'), nameController.deleteName);
 
 // nameRouter.post('/', jwtMiddleware, checkPermission('create:names'), nameController.createName);
 // nameRouter.put('/:id', jwtMiddleware, checkPermission('update:names'), nameController.updateName);
